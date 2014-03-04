@@ -65,26 +65,12 @@ scopeCom.on('open', function () {
   });
 });
 
-socket.on('control', function (data) {
-    console.log(data);
-    switch(data.move) {
-    case 'up':
-    stageCom.write(stage.up);
-    break;
-    case 'down':
-    stageCom.write(stage.down);
-    break;
-    case 'right':
-    stageCom.write(stage.right);
-    break;
-    case 'left':
-    stageCom.write(stage.left);
-    break;
-    case 'Read':
-    scopeCom.write('ACC\r', function(err, results) {
-        console.log('err ' + err);
-        console.log('results ' + results);
-    });
-    break;
-    }
+socket.on('stage', function (request) {
+  console.log('Stage Req:' + request);
+  stageCom.write(stage[request.move]);
+});
+
+socket.on('scope', function (request) {
+  console.log('Scope Req: ' + request);
+  scope[request];
 });
