@@ -7,33 +7,31 @@ var ioclient = require('socket.io-client');
 var stage = require('./lib/stage');
 var scope = require('/lib/scope');
 
+// Socket client connection.
 var socket = ioclient.connect('http://semterface.herokuapp.com/');
 //socket = ioclient.connect('http://semterface.aws.af.cm/');
 socket.on('news', function (data) {
       console.log(data);
 });
 
+var devArduino;
+var stageArduino;
+var scopeSerial;
 
-switch(process.platform) {
-    case 'darwin':
-    var stagePortName = '/dev/tty.usbserial-A800ewsy'; // My Arduino
-    //var stagePortName = '/dev/tty.usbmodem3d11'; // SEM Port
-    var scopePortName = '/dev/tty.PL2303-0000101D';
-    break;
-    case 'windows':
-    var stagePortName = 'COM3'; //Windows 7 machines
-    var scopePortName = 'COM5';
-    break;
+switch (process.platform) {
+  case 'darwin':
+    devArduino = '/dev/tty.usbserial-A800ewsy';
+    stageArduino = '/dev/tty.usbmodem3d11';
+    scopeSerial = '/dev/tty.PL2303-0000101D';
+  break;
+
+  case 'windows':
+    devArduino = 'COM3';
+    stageArduino = 'COM3';
+    scopeSerial = 'COM5';
+  break;
 }
 
-console.log('Stage Control started.');
-var serial = new SerialPort(stagePortName, {
-    baudrate: 9600
-});
-
-var scopeCom = new SerialPort(scopePortName, {
-    baudrate: 2400
-});
 
 serialport.list(function (err, ports) {
   ports.forEach(function(port) {
@@ -44,32 +42,49 @@ serialport.list(function (err, ports) {
 });
 
 
-serial.on('open', function () {
-    console.log('Serial is open');
-    serial.on('data', function(data) {
+console.log('Stage Control started.');
+var stageCom = new SerialPort(stagePortName, {
+    baudrate: 9600
+});
+
+var scopeCom = new SerialPort(scopePortName, {
+    baudrate: 2400
+});
+
+stageCom.on('open', function () {
+    console.log('stageCom is open');
+    stageCom.on('data', function(data) {
     console.log('data received: ' + data);
   });
-    socket.on('control', function (data) {
-        console.log(data);
-        switch(data.move) {
-        case 'up':
-        serial.write(stage.up);
-        break;
-        case 'down':
-        serial.write(stage.down);
-        break;
-        case 'right':
-        serial.write(stage.right);
-        break;
-        case 'left':
-        serial.write(stage.left);
-        break;
-        case 'Read':
-        scopeCom.write('ACC\r', function(err, results) {
-            console.log('err ' + err);
-            console.log('results ' + results);
-        });
-        break;
-        }
+});
+
+scopeCom.on('open', function () {
+  console.log('scopeCom is open');
+  scopeCom.on('data', function (received) {
+    console.log('scopeCom: ' + received);
+  });
+});
+
+socket.on('control', function (data) {
+    console.log(data);
+    switch(data.move) {
+    case 'up':
+    stageCom.write(stage.up);
+    break;
+    case 'down':
+    stageCom.write(stage.down);
+    break;
+    case 'right':
+    stageCom.write(stage.right);
+    break;
+    case 'left':
+    stageCom.write(stage.left);
+    break;
+    case 'Read':
+    scopeCom.write('ACC\r', function(err, results) {
+        console.log('err ' + err);
+        console.log('results ' + results);
     });
+    break;
+    }
 });
