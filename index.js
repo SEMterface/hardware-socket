@@ -7,7 +7,8 @@ var ioclient = require('socket.io-client');
 //var stage = require('./lib/stage');
 //var scope = require('./lib/scope');
 var Device = require('./lib/device');
-
+var devices;
+var replify = require('replify');
 
 // State variables
 //var connectedDevices = [];
@@ -15,20 +16,19 @@ var Device = require('./lib/device');
 // Socket client connection.
 var socket = ioclient.connect('http://semterface.herokuapp.com/');
 //socket = ioclient.connect('http://semterface.aws.af.cm/');
+
 socket.on('news', function (data) {
       console.log(data);
 });
 
+
 Device.createDevices(function(err, result) {
-  var test = result[0];
-  console.log(test.name);
-  test.methodTest(logger);
+  devices = result;
+  console.log(result);
+  //  rc /tmp/repl/sempl.sock
+  replify('sempl', socket, { 'devices': devices });
 });
 
-
-function logger (string) {
-  console.log(string);
-}
 //    console.log([port.comName, port.pnpId, port.manufacturer]);
 //    var device = devices[port.manufacturer];
 //    if (device) {
