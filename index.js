@@ -25,8 +25,6 @@ socket.on('news', function (data) {
 Device.createDevices(function(err, result) {
   devices = result;
   console.log(result);
-  //  rc /tmp/repl/sempl.sock
-  replify('sempl', socket, { 'devices': devices });
 });
 
 //    console.log([port.comName, port.pnpId, port.manufacturer]);
