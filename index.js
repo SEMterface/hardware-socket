@@ -24,6 +24,7 @@ socket.on('news', function (data) {
 
 Device.createDevices(function(err, result) {
   devices = result;
+  console.log('Final Results:')
   console.log(result);
 });
 
