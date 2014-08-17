@@ -3,6 +3,21 @@
 
   http://www.arduino.cc/en/Tutorial/SerialEvent
 
+  (Line feed, '\n', 0x0A, 10 in decimal <----
+  CR (Carriage return, '\r', 0x0D, 13 in decimal)
+  (CR+LF, '\r\n', 0x0D0A)
+
+  **************
+  Command Format
+  **************
+  <LF>OP[_arg1,]<CR>
+    <LF>:   Line Feed
+    OP:     Operation
+    arg1...: Argument for command
+    <CR>: Carriage return code; a terminator signifying the end of a command
+    _: Space code: used to separate between the command and argument or between arguments
+
+
  */
 
 String inputCommand = ""; // A string to capture the command before the space
@@ -34,7 +49,7 @@ void loop() {
     //Serial.println(inputCommand);
     //Serial.println(inputValue);
 
-    switch (var) {
+    switch (res) {
       case 0:
         // No Error
         break;
@@ -54,6 +69,7 @@ void loop() {
         break;
       default:
         // statements
+        Serial.print("!3 "+ inputString);
     }
 
     // clear the string:
