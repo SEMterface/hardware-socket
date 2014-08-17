@@ -5,35 +5,56 @@
 
  */
 
-String inputCommand = "";
-String inputValue = "";  // a string to hold incoming data
-String inputString = "";
-
-int myInts[30];
-int myIntsIndex = 0;
+String inputCommand = ""; // A string to capture the command before the space
+String inputValue = "";  // A string to capture command value after space
+String inputString = ""; // The raw Readline string
 
 boolean stringComplete = false;  // whether the string is complete
-boolean separator = false;
+boolean separator = false; // When a space is received
 
 int led = 13; // An indication LED Pin
+int res; // Response status
 
 void setup() {
   // initialize serial:
   Serial.begin(9600);
   // reserve 200 bytes for the inputString:
-  inputString.reserve(200);
-  inputCommand.reserve(20);
-  inputValue.reserve(20);
+  inputString.reserve(200); // Who knows
+  inputCommand.reserve(20);  // These need to be short
+  inputValue.reserve(20); //TODO: Stop appending if to many chars a rerecived.
+  digitalWrite(led, LOW);
 }
 
 void loop() {
   // print the string when a newline arrives:
   if (stringComplete) {
-    digitalWrite(led, LOW);
+    digitalWrite(led, LOW); // Turn off the LED.  We are processing now
+    // Stuff
+    //Serial.print(inputString);
+    //Serial.println(inputCommand);
+    //Serial.println(inputValue);
 
-    Serial.print(inputString);
-    Serial.println(inputCommand);
-    Serial.println(inputValue);
+    switch (var) {
+      case 0:
+        // No Error
+        break;
+      case 3:
+        // Format Error
+        break;
+      case 4:
+        // Argument Error
+        break;
+      case 5:
+        // Command Execution Impossible
+        // busy for other command execution
+        break;
+      case 6:
+        // Command Execution Impossible
+        // mismatch in interpretation of entered command
+        break;
+      default:
+        // statements
+    }
 
     // clear the string:
     inputString = "";
