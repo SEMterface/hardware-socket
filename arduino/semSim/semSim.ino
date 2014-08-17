@@ -36,6 +36,14 @@ String inputString = ""; // The raw Readline string
 String testString = ""; // Used for string testing
 String simVar = "10"; // TODO: Set up a larger bank of sim variables
 
+char lf = '\n';
+char cr = '\r';
+
+void printcr(String msg) {
+  Serial.print(msg + cr);
+  return;
+}
+
 boolean stringComplete = false;  // whether the string is complete
 boolean separator = false; // When a space is received
 
@@ -83,13 +91,13 @@ void loop() {
     switch (res) {
       case 0:   // No Error
         if (com && val) {
-          Serial.println("!0");
+          printcr("!0");
         } else {
-          Serial.println("!0 " + inputCommand + " " +  simVar);
+          printcr("!0 " + inputCommand + " " +  simVar);
         }
         break;
       case 3:   // Format Error
-        Serial.println("!3");
+        printcr("!3");
         break;
       case 4:   // Argument Error
 
@@ -143,8 +151,10 @@ void serialEvent() {
     // if the incoming character is a newline, set a flag
     // so the main loop can do something about it
 
-    if (inChar == '\n') {
+    if (inChar == cr) {
       stringComplete = true;
+    } else if (inChar == lf) {
+      // Pass..
     } else {
         if ((inChar == ' ') && (separator == false)) {
           separator = true;

@@ -6,9 +6,12 @@ var serialport = require("serialport");
 var SerialPort = serialport.SerialPort; // localize object constructor
 var async = require('async');
 
+var lf = '\n';
+var cr = '\r';
+
 var sp = new SerialPort("COM3", {
   baudrate: 9600,
-  parser: serialport.parsers.readline("\n")
+  parser: serialport.parsers.readline(cr)
 }); // this is the openImmediately flag [default is true]
 
 sp.on("open", function () {
@@ -44,7 +47,7 @@ function write5 () {
 
 
 function padString (string) {
-  var prefix = '';
-  var suffix = '\n';
+  var prefix = lf;
+  var suffix = cr;
   return [prefix, string, suffix].join('');
 }
