@@ -22,6 +22,7 @@
   *************
   Special Chars
   *************
+  TODO: Verify and fix the line feeds with the scope.
 
   <LF> ('\n') (Line feed, '\n', 0x0A, 10 in decimal <----
   <CR> ('\r') (Carriage return, '\r', 0x0D, 13 in decimal)
@@ -32,7 +33,7 @@
 String inputCommand = ""; // A string to capture the command before the space
 String inputValue = "";  // A string to capture command value after space
 String inputString = ""; // The raw Readline string
-String testString = ""; // Used for string testing/
+String testString = ""; // Used for string testing
 String simVar = "10"; // TODO: Set up a larger bank of sim variables
 
 boolean stringComplete = false;  // whether the string is complete
@@ -84,7 +85,7 @@ void loop() {
         if (com && val) {
           Serial.println("!0");
         } else {
-          Serial.println("!0 " + simVar);
+          Serial.println("!0 " + inputCommand + " " +  simVar);
         }
         break;
       case 3:   // Format Error
