@@ -19,46 +19,32 @@ sp.on("open", function () {
   sp.on("error", function (err) {
     console.log('err: ' + err);
   });
-  dekayWriteCb(write5);
+  initDelay(write5);
 });
 
-function dataHandler (cb) {
-  sp.on("data", function(data) {
-    console.log('data received: ' + data);
-  });
-  sp.on("error", function (err) {
-    console.log('err: ' + err);
-  });
-  cb();
-}
-
-function dekayWriteCb (cb) {
-  setTimeout(delayWrite, 1500);
-  function delayWrite () {
-    sp.write("Hello\n", function(err, results) {
-      cb();
-    });
-  }
+function initDelay (cb) {
+  setTimeout(cb, 1500);
 }
 
 function testWrite (string,cb) {
-  sp.write(string, function(err, results) {
-    console.log('wrote hello');
-    if (cb) cb();
-  });
-}
-
-function id (cb) {
-  sp.write("ID 10\n", function(err, results) {
-    console.log('newline');
+  sp.write(padString(string), function(err, results) {
+    if (err) console.log(err);
+    if (results) console.log(results);
     if (cb) cb();
   });
 }
 
 function write5 () {
-  testWrite("ACC\n");
-  testWrite("ACC 19\n");
-  testWrite("BCCT 294\n");
-  testWrite("ID\n");
-  id();
+  testWrite("ACC");
+  testWrite("ACC 19");
+  testWrite("BCCT");
+  testWrite("BcCt 294");
+  testWrite("BCCT");
+}
+
+
+function padString (string) {
+  var prefix = '';
+  var suffix = '\n';
+  return [prefix, string, suffix].join('');
 }
