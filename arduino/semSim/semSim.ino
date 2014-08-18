@@ -92,6 +92,8 @@ void loop() {
       case 0:   // No Error
         if (com && val) {
           printcr("!0");
+        } else if (inputCommand == "ID") {
+          printcr("dev");
         } else {
           printcr("!0 " + inputCommand + " " +  simVar);
         }

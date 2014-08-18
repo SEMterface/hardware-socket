@@ -43,6 +43,7 @@ function write5 () {
   testWrite("BCCT");
   testWrite("BcCt 294");
   testWrite("BCCT");
+  testWrite("ID");
 }
 
 

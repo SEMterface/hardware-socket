@@ -26,6 +26,7 @@ Device.createDevices(function(err, result) {
   devices = result;
   console.log('Final Results:')
   console.log(result);
+  console.log(err);
 });
 
 //    console.log([port.comName, port.pnpId, port.manufacturer]);
