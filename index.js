@@ -43,7 +43,7 @@ Device.createDevices(function(err, result) {
   for (item in devices) {
     if (item.role == 'scope') {
       scope = item;
-
+      Console.log('we have a scope');
       scope.on('data', function(data) {
         console.log('data received: ' + data);
       });
