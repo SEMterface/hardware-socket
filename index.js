@@ -69,7 +69,7 @@ Device.createDevices(function(err, result) {
     }
   }
 
-  devices.froEach(assignRole);
+  devices.forEach(assignRole);
 });
 
 
