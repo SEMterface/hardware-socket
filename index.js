@@ -10,6 +10,7 @@ var Device = require('./lib/device');
 var devices;
 var stage;
 var stageCommands = require('./lib/stage');
+var scopeCommands = require('/lib/scope').commands;
 var scope;
 var replify = require('replify');
 
@@ -51,6 +52,8 @@ Device.createDevices(function(err, result) {
 
       socket.on('control', function (request) {
         console.log('Stage Req:' + request);
+        console.log(request);
+        console.log(scopeCommands[request.op] + " " request.arg)
         //scope.write(scope[request.move]);
       });
     }
