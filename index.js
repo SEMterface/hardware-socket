@@ -41,6 +41,7 @@ Device.createDevices(function(err, result) {
   if (err) console.log(err);
 
   for (item in devices) {
+    console.log(item.role);
     if (item.role == 'scope') {
       scope = item;
       Console.log('we have a scope');
