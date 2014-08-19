@@ -10,7 +10,7 @@ var Device = require('./lib/device');
 var devices;
 var stage;
 var stageCommands = require('./lib/stage');
-var scopeCommands = require('/lib/scope').commands;
+var scopeCommands = require('./lib/scope').commands;
 var scope;
 var replify = require('replify');
 
