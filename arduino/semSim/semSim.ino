@@ -38,6 +38,7 @@ String simVar = "10"; // TODO: Set up a larger bank of sim variables
 
 char lf = '\n';
 char cr = '\r';
+char suffix = cr;
 
 void printcr(String msg) {
   Serial.print(msg + cr);
@@ -153,7 +154,7 @@ void serialEvent() {
     // if the incoming character is a newline, set a flag
     // so the main loop can do something about it
 
-    if (inChar == cr) {
+    if (inChar == suffix) {
       stringComplete = true;
     } else if (inChar == lf) {
       // Pass..
