@@ -13,6 +13,15 @@ var stageCommands = require('./lib/stage');
 var scope;
 var replify = require('replify');
 
+var lf = '\n';
+var cr = '\r';
+
+function padString (string) {
+  var prefix = lf;
+  var suffix = cr;
+  return [prefix, string, suffix].join('');
+}
+
 // State variables
 //var connectedDevices = [];
 
@@ -34,6 +43,15 @@ Device.createDevices(function(err, result) {
   for (item in devices) {
     if (item.role == 'scope') {
       scope = item;
+
+      scope.on('data', function(data) {
+        console.log('data received: ' + data);
+      });
+
+      socket.on('scope', function (request) {
+        console.log('Stage Req:' + request);
+        //scope.write(scope[request.move]);
+      });
     }
     if (item.role == 'stage') {
       stage = item;
@@ -49,6 +67,8 @@ Device.createDevices(function(err, result) {
     }
   }
 });
+
+
 
 //    console.log([port.comName, port.pnpId, port.manufacturer]);
 //    var device = devices[port.manufacturer];
