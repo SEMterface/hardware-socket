@@ -8,6 +8,9 @@ var ioclient = require('socket.io-client');
 //var scope = require('./lib/scope');
 var Device = require('./lib/device');
 var devices;
+var stage;
+var stageCommands = require('./lib/stage');
+var scope;
 var replify = require('replify');
 
 // State variables
@@ -27,6 +30,24 @@ Device.createDevices(function(err, result) {
   console.log('Final Results:')
   console.log(result);
   if (err) console.log(err);
+
+  for (item in devices) {
+    if (item.role == 'scope') {
+      scope = item;
+    }
+    if (item.role == 'stage') {
+      stage = item;
+
+
+      stage.on('data', function(data) {
+        console.log('data received: ' + data);
+      });
+      socket.on('stage', function (request) {
+        console.log('Stage Req:' + request);
+        stage.write(stageCommands[request.move]);
+      });
+    }
+  }
 });
 
 //    console.log([port.comName, port.pnpId, port.manufacturer]);
