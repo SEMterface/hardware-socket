@@ -18,7 +18,7 @@ var lf = '\n';
 var cr = '\r';
 
 function padString (string) {
-  var prefix = lf;
+  var prefix = '';
   var suffix = cr;
   return [prefix, string, suffix].join('');
 }
