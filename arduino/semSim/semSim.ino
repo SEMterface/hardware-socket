@@ -94,7 +94,7 @@ void loop() {
         if (com && val) {
           printcr("!0");
         } else if (inputCommand == "ID") {
-          printcr("dev");
+          printcr("scope");
         } else {
           printcr("!0 " + inputCommand + " " +  simVar);
         }

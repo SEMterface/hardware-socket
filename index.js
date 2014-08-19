@@ -54,7 +54,10 @@ Device.createDevices(function(err, result) {
         console.log('Stage Req:' + request);
         console.log(request);
         console.log(scopeCommands[request.op] + " " + request.arg)
-        //scope.write(scope[request.move]);
+        var command = padString (scopeCommands[request.op] + " " + request.arg)
+        scope.com.write(command, function (err, results) {
+          scope.com.write(padString(scopeCommands[request.op]))
+        });
       });
     }
     if (item.role == 'stage') {
