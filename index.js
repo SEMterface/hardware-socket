@@ -53,7 +53,7 @@ Device.createDevices(function(err, result) {
       socket.on('control', function (request) {
         console.log('Stage Req:' + request);
         console.log(request);
-        console.log(scopeCommands[request.op] + " " request.arg)
+        console.log(scopeCommands[request.op] + " " + request.arg)
         //scope.write(scope[request.move]);
       });
     }
