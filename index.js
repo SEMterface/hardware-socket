@@ -40,7 +40,8 @@ Device.createDevices(function(err, result) {
   console.log(result);
   if (err) console.log(err);
 
-  for (item in devices) {
+  function assignRole(item, index, array) {
+    console.log("a[" + index + "] = " + element);
     console.log(item.role);
     if (item.role == 'scope') {
       scope = item;
@@ -67,6 +68,8 @@ Device.createDevices(function(err, result) {
       });
     }
   }
+
+  devices.froEach(assignRole);
 });
 
 
