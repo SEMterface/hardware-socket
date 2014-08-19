@@ -48,7 +48,7 @@ Device.createDevices(function(err, result) {
         console.log('data received: ' + data);
       });
 
-      socket.on('scope', function (request) {
+      socket.on('control', function (request) {
         console.log('Stage Req:' + request);
         //scope.write(scope[request.move]);
       });
