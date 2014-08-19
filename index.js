@@ -41,7 +41,6 @@ Device.createDevices(function(err, result) {
   if (err) console.log(err);
 
   function assignRole(item, index, array) {
-    console.log("a[" + index + "] = " + element);
     console.log(item.role);
     if (item.role == 'scope') {
       scope = item;
