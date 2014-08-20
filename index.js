@@ -50,7 +50,9 @@ Device.createDevices(function(err, result) {
         console.log('data received: ' + data);
         var res = data.split(" ");
         console.log(res.length);
+        console.log(res);
         if (res.length === 3) {
+
           socket.emit('res', {code: res[0], op:res[1] || null , val: res[2] || null});
         }
       });
