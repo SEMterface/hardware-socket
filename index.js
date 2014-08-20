@@ -49,8 +49,8 @@ Device.createDevices(function(err, result) {
       scope.com.on('data', function(data) {
         console.log('data received: ' + data);
         var res = data.split(" ");
-        console.log(res.length());
-        if (res.length() === 3) {
+        console.log(res.length);
+        if (res.length === 3) {
           socket.emit('res', {code: res[0], op:res[1] || null , val: res[2] || null});
         }
       });
